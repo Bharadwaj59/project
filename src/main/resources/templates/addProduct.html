@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin/dashboard">MySite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/addCategory">Add Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/addProduct">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/viewProducts">Products</a>
+                </li>
+                 <a href="#" class="btn btn-danger">Logout</a>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <h2>Add Product</h2>
+        <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="name" class="form-control" placeholder="Product Name" required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Product Price</label>
+                <input type="number" id="productPrice" name="price" class="form-control" placeholder="Product Price" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <input type="text" id="productDescription" name="description" class="form-control" placeholder="Product Description" required>
+            </div>
+            <div class="form-group">
+                <label for="categorySelect">Category</label>
+                <select id="categorySelect" name="categoryId" class="form-control" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <th:block th:each="category : ${categories}">
+                        <option th:value="${category.id}" th:text="${category.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+                <input type="file" id="productImage" name="image" class="form-control-file" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Add Product</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

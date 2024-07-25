@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin: 15px;
+        }
+        .card img {
+            max-height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">MySite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addCategory">Add Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addProduct">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/viewProducts">View Products</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div th:each="entry : ${productsByCategory}" class="mb-5">
+            <h2 th:text="${entry.key.name}">Category Name</h2>
+            <div class="row">
+                <div th:each="product : ${entry.value}" class="col-md-4">
+                    <div class="card">
+                        <img th:src="@{${product.imageUrl}}" class="card-img-top" alt="Product Image">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                            <p class="card-text" th:text="'Price: ₹' + ${product.price}">Product Price</p>
+                            <p class="card-text" th:text="${product.description}">Product Description</p>
+                            <form action="/admin/deleteProduct" method="post">
+                                <input type="hidden" name="id" th:value="${product.id}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin/dashboard">MySite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/addCategory">Add Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/addProduct">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/viewProducts">Products</a>
+                </li>
+                 <a href="#" class="btn btn-danger">Logout</a>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Add Category Form -->
+        <h2>Add Category</h2>
+        <form action="/admin/addCategory" method="post">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Category Name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+
+        <!-- List of Categories -->
+        <h2 class="mt-5">Existing Categories</h2>
+        <th:block th:each="category : ${categories}">
+            <div class="card">
+                <h3 th:text="${category.name}"></h3>
+                <form action="/admin/deleteCategory" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                    <input type="hidden" name="id" th:value="${category.id}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </th:block>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
